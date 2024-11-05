@@ -9,20 +9,20 @@ def load_data():
 
 # Función para recomendar productos
 def recommend_products(selected_product, df):
-    recommendations = df[df['ProductID'] == selected_product].head(5)
+    recommendations = df[df['Product'] == selected_product].head(5)
     return recommendations
 
 # Cargar datos
 data = load_data()
 
 # Mostrar nombres de las columnas para depuración
-st.write("Nombres de las columnas:", data.columns)
+st.write("Nombres de las columnas:", data.columns.tolist())
 
 # Título de la aplicación
 st.title('Sistema de Recomendación de Productos')
 
 # Verificar si la columna 'Product' existe
-if 'ProductID' in data.columns:
+if 'Product' in data.columns:
     # Seleccionar productos
     product_list = data['Product'].unique()
     selected_product = st.selectbox('Selecciona un producto:', product_list)
@@ -38,3 +38,4 @@ else:
 # Mostrar los datos originales
 if st.checkbox('Mostrar datos originales'):
     st.write(data)
+
