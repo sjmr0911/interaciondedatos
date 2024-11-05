@@ -1,13 +1,12 @@
 import streamlit as st
 import pandas as pd
 
-# Título de la aplicación
 st.title("Análisis de Transacciones Minoristas")
 
 # Cargar el conjunto de datos
 @st.cache
 def load_data():
-    df = pd.read_csv('Retail_Transaction_Dataset.csv')  # Asegúrate de tener el CSV en la misma carpeta
+    df = pd.read_csv('Retail_Transaction_Dataset.csv')
     return df
 
 # Cargar datos
@@ -38,4 +37,3 @@ elif grafico_opcion == "Gráfico de dispersión":
     col_y = st.sidebar.selectbox("Selecciona la columna Y:", columnas)
     st.subheader(f"Gráfico de dispersión: {col_x} vs {col_y}")
     st.scatter_chart(data[[col_x, col_y]])
-
