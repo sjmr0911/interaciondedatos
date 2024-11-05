@@ -9,17 +9,15 @@ def load_data():
 
 # Función para recomendar productos
 def recommend_products(selected_product, df):
-    # Cambia 'ProductID' por el nombre correcto de la columna si es necesario
     recommendations = df[df['ProductID'] == selected_product].head(5)
     return recommendations
 
 # Cargar datos
 data = load_data()
 
-# Mostrar nombres de las columnas para depuración
+# Nombres de las columnas para depuración
 st.write("Nombres de las columnas:", data.columns.tolist())
 
-# Título de la aplicación
 st.title('Sistema de Recomendación de Productos')
 
 # Verificar si la columna 'ProductID' existe
@@ -39,5 +37,3 @@ else:
 # Mostrar los datos originales
 if st.checkbox('Mostrar datos originales'):
     st.write(data)
-
-
