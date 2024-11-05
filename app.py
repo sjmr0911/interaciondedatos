@@ -9,7 +9,7 @@ def load_data():
 
 # Función para recomendar productos
 def recommend_products(selected_product, df):
-    recommendations = df[df['ProductCategory'] == selected_product].head(5)
+    recommendations = df[df['ProductID'] == selected_product].head(5)
     return recommendations
 
 # Cargar datos
@@ -22,7 +22,7 @@ st.write("Nombres de las columnas:", data.columns)
 st.title('Sistema de Recomendación de Productos')
 
 # Verificar si la columna 'Product' existe
-if 'Product' in data.columns:
+if 'ProductID' in data.columns:
     # Seleccionar productos
     product_list = data['Product'].unique()
     selected_product = st.selectbox('Selecciona un producto:', product_list)
