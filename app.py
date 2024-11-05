@@ -9,7 +9,7 @@ def load_data():
 
 # Función para recomendar productos
 def recommend_products(selected_product, df):
-    recommendations = df[df['Product'] == selected_product].head(5)
+    recommendations = df[df['ProductCategory'] == selected_product].head(5)
     return recommendations
 
 # Cargar datos
