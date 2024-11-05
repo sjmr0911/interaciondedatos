@@ -9,19 +9,21 @@ def load_data():
 
 # Función para recomendar productos
 def recommend_products(selected_product, df):
-    # Aquí podrías implementar tu lógica de recomendación
-    # Por simplicidad, vamos a devolver algunos productos ficticios
-    # basados en la popularidad
-    recommendations = df[df['Product'] == selected_product].head(5)  # Modifica según tu lógica
+    # Lógica simple de recomendación
+    recommendations = df[df['Product'] == selected_product].head(5)
     return recommendations
 
 # Cargar datos
 data = load_data()
 
+# Mostrar nombres de las columnas para depuración
+st.write("Nombres de las columnas:", data.columns)
+
 # Título de la aplicación
 st.title('Sistema de Recomendación de Productos')
 
-# Selector de productos
+# Seleccionar productos
+# Asegúrate de que 'Product' es el nombre correcto de la columna
 product_list = data['Product'].unique()
 selected_product = st.selectbox('Selecciona un producto:', product_list)
 
