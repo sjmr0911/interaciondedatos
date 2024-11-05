@@ -1,39 +1,36 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
-st.title("Análisis de Transacciones Minoristas")
-
-# Cargar el conjunto de datos
-@st.cache
+# Cargar los datos
+@st.cache_data
 def load_data():
     df = pd.read_csv('Retail_Transaction_Dataset.csv')
     return df
 
+# Función para recomendar productos
+def recommend_products(selected_product, df):
+    # Aquí podrías implementar tu lógica de recomendación
+    # Por simplicidad, vamos a devolver algunos productos ficticios
+    # basados en la popularidad
+    recommendations = df[df['Product'] == selected_product].head(5)  # Modifica según tu lógica
+    return recommendations
+
 # Cargar datos
 data = load_data()
 
-# Mostrar datos
-if st.checkbox("Mostrar datos del conjunto"):
+# Título de la aplicación
+st.title('Sistema de Recomendación de Productos')
+
+# Selector de productos
+product_list = data['Product'].unique()
+selected_product = st.selectbox('Selecciona un producto:', product_list)
+
+# Botón para recomendar productos
+if st.button('Recomendar'):
+    recommendations = recommend_products(selected_product, data)
+    st.write('Productos recomendados:')
+    st.dataframe(recommendations)
+
+# Mostrar los datos originales
+if st.checkbox('Mostrar datos originales'):
     st.write(data)
-
-# Selección de columnas para análisis
-st.sidebar.header("Opciones de Análisis")
-columnas = data.columns.tolist()
-opcion_columna = st.sidebar.selectbox("Selecciona una columna para visualizar:", columnas)
-
-# Mostrar estadísticas descriptivas de la columna seleccionada
-if st.sidebar.button("Mostrar estadísticas"):
-    st.write(data[opcion_columna].describe())
-
-# Gráficos simples
-st.sidebar.header("Gráficos")
-grafico_opcion = st.sidebar.selectbox("Selecciona un tipo de gráfico:", ["Histograma", "Gráfico de dispersión"])
-
-if grafico_opcion == "Histograma":
-    st.subheader(f"Histograma de {opcion_columna}")
-    st.bar_chart(data[opcion_columna].value_counts())
-elif grafico_opcion == "Gráfico de dispersión":
-    col_x = st.sidebar.selectbox("Selecciona la columna X:", columnas)
-    col_y = st.sidebar.selectbox("Selecciona la columna Y:", columnas)
-    st.subheader(f"Gráfico de dispersión: {col_x} vs {col_y}")
-    st.scatter_chart(data[[col_x, col_y]])
