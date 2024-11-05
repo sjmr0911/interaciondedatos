@@ -21,15 +21,19 @@ st.write("Nombres de las columnas:", data.columns)
 # Título de la aplicación
 st.title('Sistema de Recomendación de Productos')
 
-# Seleccionar productos
-product_list = data['Product'].unique()  # Asegúrate de usar el nombre correcto aquí
-selected_product = st.selectbox('Selecciona un producto:', product_list)
+# Verificar si la columna 'Product' existe
+if 'Product' in data.columns:
+    # Seleccionar productos
+    product_list = data['Product'].unique()
+    selected_product = st.selectbox('Selecciona un producto:', product_list)
 
-# Botón para recomendar productos
-if st.button('Recomendar'):
-    recommendations = recommend_products(selected_product, data)
-    st.write('Productos recomendados:')
-    st.dataframe(recommendations)
+    # Botón para recomendar productos
+    if st.button('Recomendar'):
+        recommendations = recommend_products(selected_product, data)
+        st.write('Productos recomendados:')
+        st.dataframe(recommendations)
+else:
+    st.error("La columna 'Product' no se encontró en los datos. Verifica los nombres de las columnas.")
 
 # Mostrar los datos originales
 if st.checkbox('Mostrar datos originales'):
